@@ -153,9 +153,9 @@ struct input_params {
 	int height; // The height of the tissue, default=1
 	
 	// Simulation details
-	int time_total; // The number of minutes to run each simulation for, default=1200
+	int time_total; // The number of minutes to run each simulation for, default=930
 	int time_split; // The number of minutes it takes for cells to split, default=6
-	int time_til_growth; // The number of minutes to wait before allowing cells to grow into the anterior PSM, default=600
+	int time_til_growth; // The number of minutes to wait before allowing cells to grow into the anterior PSM, default=300
 	int seed; // The seed, used for generating random numbers, default=generated from the time and process ID
 	bool reset_seed; // Whether or not to reset the seed after each parameter set, default=false
 	int pseed; // The seed, used for generating random parameter sets, default=generated from the time and process ID
@@ -438,47 +438,53 @@ struct growin_array {
 	todo:
 */
 struct features {
-	double period_post[NUM_INDICES]; // The period of oscillations for relevant concentrations in the posterior
-	double period_ant[NUM_INDICES]; // The period of oscillations for relevant concentrations in the anterior
-	double amplitude_post[NUM_INDICES]; // The amplitude of oscillations for relevant concentrations in the posterior
-	double amplitude_ant[NUM_INDICES]; // The amplitude of oscillations for relevant concentrations in the anterior
-	double peaktotrough_mid[NUM_INDICES]; // The peak to trough ratio for relevant concentrations in the middle of the simulation time-wise
-	double peaktotrough_end[NUM_INDICES]; // The peak to trough ratio for relevant concentrations at the end of the simulation time-wise
-	double sync_score_post[NUM_INDICES]; // The synchronization score for the relevant concentrations in the posterior
+	double period_post; // The period of oscillations for relevant concentrations in the posterior
+	//double period_ant[NUM_INDICES]; // The period of oscillations for relevant concentrations in the anterior
+	//double amplitude_post[NUM_INDICES]; // The amplitude of oscillations for relevant concentrations in the posterior
+	//double amplitude_ant[NUM_INDICES]; // The amplitude of oscillations for relevant concentrations in the anterior
+	double peaktotrough_mid; // The peak to trough ratio for relevant concentrations in the middle of the simulation time-wise
+	double peaktotrough_end; // The peak to trough ratio for relevant concentrations at the end of the simulation time-wise
+	//double sync_score_post[NUM_INDICES]; // The synchronization score for the relevant concentrations in the posterior
 	double sync_score_ant[NUM_INDICES]; // The synchronization score for the relevant concentrations in the anterior
-    	double comp_score_ant_mespa; // The score for the complementary expression of her and mespa
-    	double comp_score_ant_mespb; // The score for the complementary expression of her and mespb
-	double num_good_somites[NUM_INDICES]; // The number of good somites for the relevant concentrations
-    	map<int, double> period_post_time[NUM_INDICES]; // The period in the posterior at various time points in the simulation
-   	map<int, double> amplitude_post_time[NUM_INDICES]; // The amplitude in the posterior at various time points in the simulation
-   	map<int, double> period_ant_time[NUM_INDICES]; // The period in the anterior at various time points in the simulation
+    double comp_score_ant_mespa; // The score for the complementary expression of her and mespa
+    double comp_score_ant_mespb; // The score for the complementary expression of her and mespb
+	//double num_good_somites[NUM_INDICES]; // The number of good somites for the relevant concentrations
+    //map<int, double> period_post_time[NUM_INDICES]; // The period in the posterior at various time points in the simulation
+   	//map<int, double> amplitude_post_time[NUM_INDICES]; // The amplitude in the posterior at various time points in the simulation
+   	//map<int, double> period_ant_time[NUM_INDICES]; // The period in the anterior at various time points in the simulation
    	map<int, double> amplitude_ant_time[NUM_INDICES]; // The amplitude in the anterior at various time points in the simulaiton
-    	map<int, double> sync_time[NUM_INDICES]; // The amplitude in the anterior at various time points in the simulation
+    //map<int, double> sync_time[NUM_INDICES]; // The amplitude in the anterior at various time points in the simulation
 	
 	features () {
-		memset(period_post, 0, sizeof(period_post));
-		memset(period_ant, 0, sizeof(period_ant));
-		memset(amplitude_post, 0, sizeof(amplitude_post));
-		memset(amplitude_ant, 0, sizeof(amplitude_ant));
-		memset(peaktotrough_mid, 0, sizeof(peaktotrough_mid));
-		memset(peaktotrough_end, 0, sizeof(peaktotrough_end));
-		memset(sync_score_post, 0, sizeof(sync_score_post));
+		//memset(period_post, 0, sizeof(period_post));
+		//memset(period_ant, 0, sizeof(period_ant));
+        period_post=0;
+		//memset(amplitude_post, 0, sizeof(amplitude_post));
+		//memset(amplitude_ant, 0, sizeof(amplitude_ant));
+		//memset(peaktotrough_mid, 0, sizeof(peaktotrough_mid));
+		//memset(peaktotrough_end, 0, sizeof(peaktotrough_end));
+        peaktotrough_mid=0;
+        peaktotrough_end=0;
+		//memset(sync_score_post, 0, sizeof(sync_score_post));
 		memset(sync_score_ant, 0, sizeof(sync_score_ant));
-		memset(num_good_somites, 0, sizeof(num_good_somites));
+		//memset(num_good_somites, 0, sizeof(num_good_somites));
         comp_score_ant_mespa = 0;
         comp_score_ant_mespb = 0;
 	}
 	
 	void reset () {
-		memset(period_post, 0, sizeof(period_post));
-		memset(period_ant, 0, sizeof(period_ant));
-		memset(amplitude_post, 0, sizeof(amplitude_post));
-		memset(amplitude_ant, 0, sizeof(amplitude_ant));
-		memset(peaktotrough_mid, 0, sizeof(peaktotrough_mid));
-		memset(peaktotrough_end, 0, sizeof(peaktotrough_end));
-		memset(sync_score_post, 0, sizeof(sync_score_post));
+		//memset(period_post, 0, sizeof(period_post));
+		//memset(period_ant, 0, sizeof(period_ant));
+		period_post=0;
+        //(amplitude_post, 0, sizeof(amplitude_post));
+		//memset(amplitude_ant, 0, sizeof(amplitude_ant));
+		//memset(peaktotrough_mid, 0, sizeof(peaktotrough_mid));
+		//memset(peaktotrough_end, 0, sizeof(peaktotrough_end));
+        peaktotrough_mid=0;
+        peaktotrough_end=0;
+		//memset(sync_score_post, 0, sizeof(sync_score_post));
 		memset(sync_score_ant, 0, sizeof(sync_score_ant));
-		memset(num_good_somites, 0, sizeof(num_good_somites));
+		//memset(num_good_somites, 0, sizeof(num_good_somites));
         comp_score_ant_mespa = 0;
         comp_score_ant_mespb = 0;
 	}
@@ -501,14 +507,14 @@ struct mutant_data {
 	con_levels cl; // The concentration levels at the end of this mutant's posterior simulation run
 	double (*tests[2])(mutant_data&, features&); // The posterior and anterior conditions tests
 	int (*wave_test)(pair<int, int>[], int, mutant_data&, int, int); // The traveling wave conditions test
-	int num_conditions[NUM_SECTIONS]; // The number of conditions this mutant is tested on
-	double cond_scores[NUM_SECTIONS][MAX_CONDS_ANY]; // The score this mutant can achieve for each condition
+	int num_conditions[NUM_SECTIONS+1]; // The number of conditions this mutant is tested on
+	double cond_scores[NUM_SECTIONS+1][MAX_CONDS_ANY]; // The score this mutant can achieve for each condition
 	double max_cond_scores[NUM_SECTIONS]; // The maximum score this mutant can achieve for each section
 	bool secs_passed[NUM_SECTIONS]; // Whether or not this mutant has passed each section's conditions
 	double conds_passed[NUM_SECTIONS][1 + MAX_CONDS_ANY]; // The score this mutant achieved for each condition when run
 	features feat; // The oscillation features this mutant produced when run
 	int print_con; // The index of the concentration that should be printed (usually mh1)
-	
+    bool only_post; //indicating if only the posterior is simulated
 	mutant_data () {
 		this->index = 0;
 		this->print_name = NULL;
@@ -527,6 +533,7 @@ struct mutant_data {
 		memset(this->max_cond_scores, 0, sizeof(this->max_cond_scores));
 		memset(this->secs_passed, false, sizeof(this->secs_passed));
 		this->print_con = CMH1;
+        only_post=false;
 	}
 	
 	~mutant_data () {
@@ -537,12 +544,13 @@ struct mutant_data {
 	
 	// Calculates the maximum score this mutant can achieve for each section based on the scores given for each condition
 	void calc_max_scores () {
-		for (int i = 0; i < NUM_SECTIONS; i++) {
-			this->max_cond_scores[i] = 0;
-			for (int j = 0; j < this->num_conditions[i]; j++) {
-				this->max_cond_scores[i] += this->cond_scores[i][j];
-			}
-		}
+            //cout<<"1 "<<endl;
+            for (int i = 0; i < NUM_SECTIONS; i++) {
+                this->max_cond_scores[i] = 0;
+                for (int j = 0; j < this->num_conditions[i]; j++) {
+                    this->max_cond_scores[i] += this->cond_scores[i][j];
+                }
+            }
 	}
 };
 
